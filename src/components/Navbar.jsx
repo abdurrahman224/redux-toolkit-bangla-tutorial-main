@@ -1,21 +1,28 @@
-import React from "react";
+// import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router";
 
 const Navbar = () => {
 
+  const carts = useSelector(state => state.cart);
+  const cartItemCount = carts.reduce((total, item) => total + item.quantity, 0);
  
   return (
     <div className="bg-indigo-900 text-white">
       <div className="navbar max-w-7xl mx-auto">
         <div className="flex-1">
-          <Link to="/" className=" hover:text-yellow-500 hover:underline text-xl">ShoppingCart</Link>
+          <Link
+            to="/"
+            className=" hover:text-yellow-500 hover:underline text-xl"
+          >
+            ShoppingCart
+          </Link>
         </div>
 
         <div className="flex-none space-x-4">
-            <div>
-                <Link to="/">Home</Link>
-            </div>
+          <div>
+            <Link to="/">Home</Link>
+          </div>
           <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
@@ -37,7 +44,9 @@ const Navbar = () => {
                     d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                   />
                 </svg>
-                <span className="badge badge-sm indicator-item"></span>
+                <span className="badge badge-sm indicator-item">
+                  {cartItemCount}
+                </span>
               </div>
             </div>
             <div
@@ -45,11 +54,16 @@ const Navbar = () => {
               className="card card-compact dropdown-content bg-base-100 z-[1] mt-3 w-52 shadow"
             >
               <div className="card-body">
-                <span className="text-lg font-bold"> Items</span>
+                <span className="text-lg font-bold">
+                  {carts.length ? carts.length : 0} Items
+                </span>
                 <div className="card-actions">
-                 <Link to="/cart"> <button className="btn btn-primary btn-block">
-                    View cart
-                  </button></Link>
+                  <Link to="/cart">
+                    {' '}
+                    <button className="btn btn-primary btn-block">
+                      View cart
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>

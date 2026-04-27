@@ -1,7 +1,14 @@
 import { useSelector } from "react-redux";
 
 const BillingPage = () => {
+const cart = useSelector(state => state.cart.items) || [];
 
+const subTotal = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+
+const totalBillings = (subTotal) => {
+  const shippingCost = subTotal > 0 ? 4.99 : 0;
+  return (subTotal + shippingCost).toFixed(2);
+}
 
   return (
     <div className="mt-6 rounded-lg border bg-white p-6 shadow-md md:mt-0">
